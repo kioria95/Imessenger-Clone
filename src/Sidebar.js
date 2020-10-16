@@ -10,19 +10,28 @@ import { selectUser } from "./features/userSlice";
 import { auth } from "./firebase";
 
 function Sidebar() {
-  const [channels, setChannels] = useState([]);
+  const [chats, setChats] = useState([]);
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    db.collection("channels").onSnapshot((snapshot) =>
-      setChannels(
+    db.collection("chats").onSnapshot((snapshot) =>
+      setChats(
         snapshot.docs.map((doc) => ({
           id: doc.id,
-          channel: doc.data(),
+          data: doc.data(),
         }))
       )
     );
   }, []);
+
+  const addChat = () => {
+    const chatName = prompt("Please enter a chat name");
+    if (chatName) {
+      db.collection("chats").add({
+        chatName: chatName,
+      });
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -38,13 +47,13 @@ function Sidebar() {
           <input placeholder="Search" />
         </div>
         <IconButton variant="outlined" className="sidebar__inputButton">
-          <RateReviewOutlinedIcon />
+          <RateReviewOutlinedIcon onClick={addChat} />
         </IconButton>
       </div>
 
       <div className="sidebar__chats">
-        {channels.map(({ id, channel }) => (
-          <SidebarChat key={id} id={id} channelName={channel.channelName} />
+        {chats.map(({ id, data: { chatName } }) => (
+          <SidebarChat key={id} id={id} chatName={chatName} />
         ))}
       </div>
     </div>
