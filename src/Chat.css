@@ -50,3 +50,13 @@
 .chat__input > form > button{
   display: none;
 }
+
+.chat__messages{
+  overflow: scroll;
+  -ms-text-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.chat__messages::-webkit-scrollbar{
+  display: none;
+}
