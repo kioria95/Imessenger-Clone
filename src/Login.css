@@ -12,12 +12,12 @@
   
   .login > button {
     width: 300px;
-    background-color: #738adb;
+    background-color: #3ea4fb;
     color: #eff2f5;
     font-weight: 800;
   }
   
   .login > button:hover {
-    color: #738adb !important;
-    background-color: #eff2f5 !important;
+    color: #3ea4fb;
+    background-color: gainsboro;
   }
